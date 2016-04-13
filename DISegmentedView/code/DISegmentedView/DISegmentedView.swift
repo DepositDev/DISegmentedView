@@ -24,6 +24,7 @@ public class DISegmentedView: UIControl {
     
     public var titles: [String] = [String]() {
         didSet {
+            selectedIndex = min(titles.count - 1, selectedIndex)
             addButtons()
             setNeedsLayout()
         }
@@ -77,9 +78,9 @@ public class DISegmentedView: UIControl {
     }
     
     //MARK: - Inits
-    public init(names: [String]) {
+    public init(names: [String], frame: CGRect = CGRect(x: 0, y: 0, width: 44, height: 44)) {
         self.titles = names
-        super.init(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
+        super.init(frame: frame)
         
         self.configureIndicator()
         self.addButtons()
@@ -123,7 +124,7 @@ public class DISegmentedView: UIControl {
             button.setTitleColor(titleActiveColor, forState: .Selected)
             button.tintColor = UIColor.clearColor()
             button.titleLabel?.font = titleFont
-            button.addTarget(self, action: "selectButton:", forControlEvents: .TouchUpInside)
+            button.addTarget(self, action: #selector(DISegmentedView.selectButton(_:)), forControlEvents: .TouchUpInside)
             
             addSubview(button)
             
