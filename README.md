@@ -36,4 +36,4 @@ Just copy `DISegmentedView` class to your project.
 
 ## License
 
-DISegmentedView is available under the Apache 2.0 license. See the LICENSE file for more info.
+DISegmentedView is available under the MIT license. See the LICENSE file for more info.
