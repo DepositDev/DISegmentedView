@@ -9,6 +9,7 @@
 import UIKit
 
 
+/// Dot indicator segment view.
 @IBDesignable
 public class DISegmentedView: UIControl {
     
@@ -16,12 +17,14 @@ public class DISegmentedView: UIControl {
     private let indicator = UIView()
     private let titleFont = UIFont.systemFontOfSize(17)
     
+    /// Currently selected segment button.
     public var selectedIndex = 0 {
         didSet {
             setSelectedIndex(selectedIndex, animated: false)
         }
     }
     
+    /// Arrays of the titles for segments. Dynamically update instance for new array of title.
     public var titles: [String] = [String]() {
         didSet {
             selectedIndex = min(titles.count - 1, selectedIndex)
@@ -30,12 +33,14 @@ public class DISegmentedView: UIControl {
         }
     }
     
+    /// Tint color for dot, that indicates selected segment.
     override public var tintColor: UIColor! {
         didSet {
             indicator.backgroundColor = tintColor
         }
     }
     
+    /// Diameter of dot, that indicates selected segment.
     @IBInspectable
     public var indicatorWidth: CGFloat = 5 {
         didSet {
@@ -45,6 +50,7 @@ public class DISegmentedView: UIControl {
         }
     }
     
+    /// Vertical offset between segment and dot indicator.
     @IBInspectable
     public var indicatorOffset: CGFloat = 7 {
         didSet {
@@ -52,6 +58,7 @@ public class DISegmentedView: UIControl {
         }
     }
     
+    /// Color of the active segment title.
     @IBInspectable
     public var titleActiveColor: UIColor = UIColor.whiteColor() {
         didSet {
@@ -61,6 +68,7 @@ public class DISegmentedView: UIControl {
         }
     }
     
+    /// Color of the inactive segment title.
     @IBInspectable
     public var titleInactiveColor: UIColor = UIColor(white: 150 / 255, alpha: 1) {
         didSet {
@@ -78,6 +86,14 @@ public class DISegmentedView: UIControl {
     }
     
     //MARK: - Inits
+    /**
+     Create an instance of DISegmentedVeiw.
+     
+     - parameter names: Array of the titles for segment.
+     - parameter frame: Frame of the instance.
+     
+     - returns: Instance of the DISegmentedView.
+     */
     public init(names: [String], frame: CGRect = CGRect(x: 0, y: 0, width: 44, height: 44)) {
         self.titles = names
         super.init(frame: frame)
@@ -86,6 +102,13 @@ public class DISegmentedView: UIControl {
         self.addButtons()
     }
     
+    /**
+     Create an instance of DISegmentedVeiw.
+     
+     - parameter frame: Frame of the instance.
+     
+     - returns: Instance of the DISegmentedView.
+     */
     override public init(frame: CGRect) {
         self.titles = [String]()
         super.init(frame: frame)
@@ -146,10 +169,16 @@ public class DISegmentedView: UIControl {
     }
     
     //MARK: - Change state
-    public func selectButton(sender: UIButton) {
+    internal func selectButton(sender: UIButton) {
         setSelectedIndex(buttons.indexOf(sender)!, animated: true)
     }
     
+    /**
+     Set the current selected segment.
+     
+     - parameter index:    Index of the selected index.
+     - parameter animated: `true` to animate changing of the segement property.
+     */
     public func setSelectedIndex(index: Int, animated: Bool) {
         guard selectedIndex != index else { return }
         
