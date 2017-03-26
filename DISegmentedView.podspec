@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "DISegmentedView"
-  s.version      = "0.1.0"
+  s.version      = "0.2.0"
   s.summary      = "Dot indicator segmented view."
   s.homepage     = "https://github.com/DepositDev/DISegmentedView"
   s.license      = 'MIT'
