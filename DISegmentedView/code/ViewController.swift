@@ -18,7 +18,7 @@ class ViewController: UIViewController {
         segmentView.titles = ["first", "second", "third"]
     }
     
-    @IBAction func changeValue(sender: DISegmentedView) {
+    @IBAction func changeValue(_ sender: DISegmentedView) {
         print(sender.selectedIndex)
     }
 }
