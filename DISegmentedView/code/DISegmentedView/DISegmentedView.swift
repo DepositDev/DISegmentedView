@@ -13,9 +13,9 @@ import UIKit
 @IBDesignable
 open class DISegmentedView: UIControl {
     
-    fileprivate var buttons = [UIButton]()
-    fileprivate let indicator = UIView()
-    fileprivate let titleFont = UIFont.systemFont(ofSize: 17)
+    private var buttons = [UIButton]()
+    private let indicator = UIView()
+    private let titleFont = UIFont.systemFont(ofSize: 17)
     
     /// Currently selected segment button.
     open var selectedIndex = 0 {
@@ -28,7 +28,7 @@ open class DISegmentedView: UIControl {
     open var titles: [String] = [String]() {
         didSet {
             selectedIndex = min(titles.count - 1, selectedIndex)
-            addButtons()
+            redrawButtons()
             setNeedsLayout()
         }
     }
@@ -73,7 +73,7 @@ open class DISegmentedView: UIControl {
     open var titleInactiveColor: UIColor = UIColor(white: 150 / 255, alpha: 1) {
         didSet {
             for button in buttons {
-                button.setTitleColor(titleInactiveColor, for: UIControlState())
+                button.setTitleColor(titleInactiveColor, for: .normal)
             }
         }
     }
@@ -99,7 +99,7 @@ open class DISegmentedView: UIControl {
         super.init(frame: frame)
         
         self.configureIndicator()
-        self.addButtons()
+        self.redrawButtons()
     }
     
     /**
@@ -114,7 +114,7 @@ open class DISegmentedView: UIControl {
         super.init(frame: frame)
         
         configureIndicator()
-        addButtons()
+        redrawButtons()
     }
 
     required public init?(coder aDecoder: NSCoder) {
@@ -122,11 +122,11 @@ open class DISegmentedView: UIControl {
         super.init(coder: aDecoder)
         
         configureIndicator()
-        addButtons()
+        redrawButtons()
     }
     
     //MARK: - Configure
-    fileprivate func configureIndicator() {
+    private func configureIndicator() {
         indicator.frame              = CGRect(x: 0, y: 0, width: indicatorWidth, height: indicatorWidth)
         indicator.clipsToBounds      = true
         indicator.backgroundColor    = tintColor
@@ -135,7 +135,7 @@ open class DISegmentedView: UIControl {
         addSubview(indicator)
     }
     
-    fileprivate func addButtons() {
+    private func redrawButtons() {
         for button in buttons {
             button.removeFromSuperview()
         }
@@ -169,7 +169,7 @@ open class DISegmentedView: UIControl {
     }
     
     //MARK: - Change state
-    internal func selectButton(_ sender: UIButton) {
+    @objc private func selectButton(_ sender: UIButton) {
         setSelectedIndex(buttons.index(of: sender)!, animated: true)
     }
     
